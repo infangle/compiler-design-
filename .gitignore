@@ -1,0 +1,30 @@
+# Ignore build artifacts
+build/
+*.o
+*.out
+*.exe
+
+# Ignore Flex/Bison generated files
+src/lexer/lex.yy.c
+src/parser/y.tab.c
+src/parser/y.tab.h
+
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+# Ignore log files
+*.log
+
+# Ignore temporary files
+*.swp
+*.swo
+*.tmp
+*.bak
+
+# Ignore IDE files
+.vscode/
+.idea/
+
+# Ignore compiled binary
+compiler
