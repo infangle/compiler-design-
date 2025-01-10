@@ -1,6 +1,6 @@
 # Compiler and flags
-CC = gcc
-CFLAGS = -Wall -g
+CC = g++
+CFLAGS = -Wall -g -std=c++11
 
 # Directories
 SRC_DIR = src
@@ -12,27 +12,27 @@ LEX_FILE = $(SRC_DIR)/lexer/lexer.l
 YACC_FILE = $(SRC_DIR)/parser/parser.y
 
 # Output files
-LEX_C = $(BUILD_DIR)/lex.yy.c
-YACC_C = $(BUILD_DIR)/y.tab.c
-YACC_H = $(BUILD_DIR)/y.tab.h
+LEX_C = $(BUILD_DIR)/lex.yy.cpp
+YACC_C = $(BUILD_DIR)/y.tab.cpp
+YACC_H = $(BUILD_DIR)/y.tab.hpp
 EXEC = $(BUILD_DIR)/compiler
 
 # Targets
 all: $(EXEC)
 
 $(LEX_C): $(LEX_FILE)
-	  flex -o $@ $<
+	flex -o $@ $<
 
 $(YACC_C) $(YACC_H): $(YACC_FILE)
-	  bison -d -o $(BUILD_DIR)/parser.c $<
+	bison -d -o $(BUILD_DIR)/parser.cpp $<
 
 $(EXEC): $(LEX_C) $(YACC_C)
-	  $(CC) $(CFLAGS) -o $@ $^
+	$(CC) $(CFLAGS) -o $@ $^
 
 clean:
-	  rm -rf $(BUILD_DIR)/*
+	rm -rf $(BUILD_DIR)/*
 
 test: $(EXEC)
-	  ./$(EXEC) < $(TEST_DIR)/inputs/test1.txt > $(TEST_DIR)/outputs/test1.out
+	./$(EXEC) < $(TEST_DIR)/inputs/test1.txt > $(TEST_DIR)/outputs/test1.out
 
 .PHONY: all clean test
